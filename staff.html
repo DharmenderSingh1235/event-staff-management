@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff Management</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>EVENT STAFF ADMIN</h1>
+
+    <nav>
+        <a href="admin.html">Dashboard</a>
+        <a href="staff.html">Staff</a>
+        <button onclick="logout()">Logout</button>
+    </nav>
+</header>
+
+<section class="admin">
+
+    <h2>Staff Management</h2>
+
+    <!-- Add Staff -->
+    <div class="staff-form">
+
+        <h3>Add New Staff</h3>
+
+        <form id="staffForm">
+
+            <label>Staff Name</label>
+            <input type="text" id="staffName" required>
+
+            <label>Phone Number</label>
+            <input type="tel"
+                   id="staffPhone"
+                   pattern="[0-9]{10}"
+                   required>
+
+            <label>Gender</label>
+            <select id="staffGender" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <label>Age</label>
+            <input type="number"
+                   id="staffAge"
+                   min="18"
+                   max="60"
+                   required>
+
+            <label>Service</label>
+            <select id="staffService" required>
+                <option value="">Select Service</option>
+                <option>Guest Welcome</option>
+                <option>Event Assistance</option>
+                <option>Hospitality</option>
+                <option>Guest Management</option>
+            </select>
+
+            <button type="submit">
+                Add Staff
+            </button>
+
+        </form>
+
+    </div>
+
+    <br><br>
+
+    <!-- Staff Table -->
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Staff ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>Service</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="staffTable">
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<script>
+
+/* Admin protection */
+
+if (sessionStorage.getItem("adminLoggedIn") !== "true") {
+
+    window.location.href = "admin-login.html";
+
+}
+
+
+/* Get existing staff */
+
+let staffList =
+    JSON.parse(localStorage.getItem("staffList")) || [];
+
+
+/* Add Staff */
+
+document.getElementById("staffForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let staffID =
+        "STF-" + Math.floor(1000 + Math.random() * 9000);
+
+    let staff = {
+
+        staffID: staffID,
+
+        name:
+            document.getElementById("staffName").value,
+
+        phone:
+            document.getElementById("staffPhone").value,
+
+        gender:
+            document.getElementById("staffGender").value,
+
+        age:
+            document.getElementById("staffAge").value,
+
+        service:
+            document.getElementById("staffService").value,
+
+        status: "Available"
+
+    };
+
+    staffList.push(staff);
+
+    localStorage.setItem(
+        "staffList",
+        JSON.stringify(staffList)
+    );
+
+    alert("Staff added successfully!");
+
+    document.getElementById("staffForm").reset();
+
+    displayStaff();
+
+});
+
+
+/* Display Staff */
+
+function displayStaff() {
+
+    let table =
+        document.getElementById("staffTable");
+
+    table.innerHTML = "";
+
+    staffList.forEach(function(staff) {
+
+        let row =
+            document.createElement("tr");
+
+        row.innerHTML = `
+
+            <td>${staff.staffID}</td>
+
+            <td>${staff.name}</td>
+
+            <td>${staff.phone}</td>
+
+            <td>${staff.gender}</td>
+
+            <td>${staff.age}</td>
+
+            <td>${staff.service}</td>
+
+            <td>${staff.status}</td>
+
+            <td>
+
+                <button
+                    onclick="toggleStatus('${staff.staffID}')">
+                    Change Status
+                </button>
+
+                <button
+                    onclick="deleteStaff('${staff.staffID}')">
+                    Delete
+                </button>
+
+            </td>
+
+        `;
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+/* Change Available / Busy */
+
+function toggleStatus(staffID) {
+
+    let staff =
+        staffList.find(
+            s => s.staffID === staffID
+        );
+
+    if (staff) {
+
+        if (staff.status === "Available") {
+
+            staff.status = "Busy";
+
+        } else {
+
+            staff.status = "Available";
+
+        }
+
+        localStorage.setItem(
+            "staffList",
+            JSON.stringify(staffList)
+        );
+
+        displayStaff();
+
+    }
+
+}
+
+
+/* Delete Staff */
+
+function deleteStaff(staffID) {
+
+    if (!confirm("Delete this staff member?")) {
+        return;
+    }
+
+    staffList =
+        staffList.filter(
+            s => s.staffID !== staffID
+        );
+
+    localStorage.setItem(
+        "staffList",
+        JSON.stringify(staffList)
+    );
+
+    displayStaff();
+
+}
+
+
+/* Logout */
+
+function logout() {
+
+    sessionStorage.removeItem("adminLoggedIn");
+
+    window.location.href =
+        "admin-login.html";
+
+}
+
+
+/* Initial display */
+
+displayStaff();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style6.css">
+</head>
+
+<body>
+
+<header>
+
+    <h1>EVENT STAFF</h1>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="request.html">Book Staff</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+</header>
+
+
+<section class="contact-page">
+
+    <h2>Contact Us</h2>
+
+    <p>
+        Have a question about our event staffing services?
+        Send us a message.
+    </p>
+
+
+    <div class="contact-container">
+
+
+        <!-- Contact Information -->
+
+        <div class="contact-info">
+
+            <h3>Get In Touch</h3>
+
+            <p>
+                📞 <strong>Phone:</strong>
+                +91 98765 43210
+            </p>
+
+            <p>
+                📧 <strong>Email:</strong>
+                info@eventstaff.com
+            </p>
+
+            <p>
+                📍 <strong>Location:</strong>
+                Punjab, India
+            </p>
+
+            <p>
+                🕐 <strong>Working Hours:</strong>
+                9:00 AM - 8:00 PM
+            </p>
+
+        </div>
+
+
+        <!-- Contact Form -->
+
+        <div class="contact-form">
+
+            <h3>Send Message</h3>
+
+            <form id="contactForm">
+
+                <label>Your Name</label>
+
+                <input
+                    type="text"
+                    id="contactName"
+                    placeholder="Enter your name"
+                    required
+                >
+
+
+                <label>Phone Number</label>
+
+                <input
+                    type="tel"
+                    id="contactPhone"
+                    placeholder="Enter phone number"
+                    pattern="[0-9]{10}"
+                    required
+                >
+
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="contactEmail"
+                    placeholder="Enter email"
+                    required
+                >
+
+
+                <label>Message</label>
+
+                <textarea
+                    id="contactMessage"
+                    rows="6"
+                    placeholder="Write your message..."
+                    required
+                ></textarea>
+
+
+                <button type="submit">
+                    Send Message
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <p>© 2026 Event Staff Booking</p>
+
+</footer>
+
+
+<script>
+
+document.getElementById("contactForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let contactMessage = {
+
+        name:
+            document.getElementById(
+                "contactName"
+            ).value,
+
+        phone:
+            document.getElementById(
+                "contactPhone"
+            ).value,
+
+        email:
+            document.getElementById(
+                "contactEmail"
+            ).value,
+
+        message:
+            document.getElementById(
+                "contactMessage"
+            ).value,
+
+        date:
+            new Date().toLocaleString()
+
+    };
+
+
+    let messages =
+        JSON.parse(
+            localStorage.getItem(
+                "contactMessages"
+            )
+        ) || [];
+
+
+    messages.push(contactMessage);
+
+
+    localStorage.setItem(
+        "contactMessages",
+        JSON.stringify(messages)
+    );
+
+
+    alert(
+        "Thank you! Your message has been sent."
+    );
+
+
+    document.getElementById(
+        "contactForm"
+    ).reset();
+
+});
+
+</script>
+
+</body>
+
+</html>

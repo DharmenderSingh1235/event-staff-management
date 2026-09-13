@@ -1,0 +1,6 @@
+const OWNER_USERNAME='admin';
+const OWNER_PASSWORD='12345';
+function requireAdmin(){if(!localStorage.getItem('eventEaseAdmin'))location.href='login.html'}
+function renderNav(){const nav=document.querySelector('#adminNav');if(!nav)return;const page=location.pathname.split('/').pop();nav.innerHTML=`<a class="brand" href="dashboard.html">Event<span>Ease</span></a><nav class="admin-nav"><a class="${page==='dashboard.html'?'active':''}" href="dashboard.html">Overview</a><a class="${page==='bookings.html'?'active':''}" href="bookings.html">Bookings</a><a class="${page==='staff.html'?'active':''}" href="staff.html">Staff</a><a class="${page==='calendar.html'?'active':''}" href="calendar.html">Calendar</a></nav><button class="logout" id="logout">Sign out</button>`;document.querySelector('#logout').onclick=()=>{localStorage.removeItem('eventEaseAdmin');location.href='login.html'}}
+document.querySelector('#loginForm')?.addEventListener('submit',e=>{e.preventDefault();const form=new FormData(e.target),error=document.querySelector('#loginError');if(form.get('username')===OWNER_USERNAME&&form.get('password')===OWNER_PASSWORD){localStorage.setItem('eventEaseAdmin','true');location.href='dashboard.html'}else error.textContent='Incorrect owner username or password.'});
+if(document.querySelector('#adminNav')){requireAdmin();renderNav()}

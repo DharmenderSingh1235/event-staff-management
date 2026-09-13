@@ -1,0 +1,74 @@
+/* Services Page */
+
+.service-page {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.service-page h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.service-intro {
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.service-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.1);
+
+    transition: 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.service-card h3 {
+    color: #2563eb;
+    margin-bottom: 15px;
+}
+
+.service-card p {
+    line-height: 1.6;
+    color: #555;
+    min-height: 80px;
+}
+
+.service-card a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+
+    background: #2563eb;
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+}
+
+.service-card a:hover {
+    background: #1d4ed8;
+}

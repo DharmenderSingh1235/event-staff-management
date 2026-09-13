@@ -1,0 +1,139 @@
+/* Payment */
+
+.payment-page {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.payment-page > h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.payment-card {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.payment-card h3 {
+    margin: 20px 0;
+    color: #2563eb;
+}
+
+.payment-card p {
+    margin: 12px 0;
+}
+
+.amount {
+    font-size: 35px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.payment-option {
+    display: block;
+    padding: 15px;
+    margin: 10px 0;
+    background: #f3f4f6;
+    border-radius: 7px;
+}
+
+.payment-option input {
+    margin-right: 10px;
+}
+
+.payment-card button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 7px;
+    background: #2563eb;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+
+/* Receipt */
+
+.receipt {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.receipt-header {
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 20px;
+}
+
+.receipt-header h1 {
+    color: #2563eb;
+}
+
+.paid {
+    text-align: center;
+    margin: 25px 0;
+    padding: 15px;
+    background: #dcfce7;
+    color: #166534;
+    font-weight: bold;
+    border-radius: 7px;
+}
+
+.receipt-details p {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.receipt-total {
+    margin-top: 25px;
+    padding: 20px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    background: #f3f4f6;
+    border-radius: 8px;
+}
+
+.receipt button {
+    margin-top: 25px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 7px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+.receipt a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: #2563eb;
+}
+
+
+/* Print Receipt */
+
+@media print {
+
+    .receipt button,
+    .receipt a {
+        display: none;
+    }
+
+    .receipt {
+        box-shadow: none;
+        margin: 0;
+    }
+
+}

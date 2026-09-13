@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Booking Confirmation</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<h1>EVENT STAFF</h1>
+
+<div class="confirmation">
+
+    <div class="success">
+        ✓
+    </div>
+
+    <h2>Booking Request Submitted</h2>
+
+    <p>
+        Thank you! Your booking request has been
+        sent to our admin team.
+    </p>
+
+    <div class="request-id">
+
+        <p>Your Request ID</p>
+
+        <h2 id="requestID">
+            Loading...
+        </h2>
+
+    </div>
+
+    <p>
+        Current Status:
+        <strong id="status">
+            Pending
+        </strong>
+    </p>
+
+    <br>
+
+    <a href="index.html" class="home-button">
+        Back to Home
+    </a>
+
+</div>
+
+
+<script>
+
+let requestID =
+    localStorage.getItem("lastRequestID");
+
+let bookings =
+    JSON.parse(
+        localStorage.getItem("bookings")
+    ) || [];
+
+let booking =
+    bookings.find(
+        function(item) {
+            return item.requestID === requestID;
+        }
+    );
+
+
+if (booking) {
+
+    document.getElementById(
+        "requestID"
+    ).innerText =
+        booking.requestID;
+
+    document.getElementById(
+        "status"
+    ).innerText =
+        booking.status;
+
+}
+
+</script>
+
+</body>
+
+</html>

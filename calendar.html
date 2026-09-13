@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Event Calendar</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>EVENT STAFF ADMIN</h1>
+
+    <nav>
+
+        <a href="admin.html">
+            Dashboard
+        </a>
+
+        <a href="staff.html">
+            Staff
+        </a>
+
+        <a href="calendar.html">
+            Calendar
+        </a>
+
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </nav>
+
+</header>
+
+
+<section class="calendar-page">
+
+    <h2>Event Calendar</h2>
+
+    <div id="calendar"></div>
+
+</section>
+
+
+<script>
+
+
+/* Admin protection */
+
+if (
+    sessionStorage.getItem("adminLoggedIn")
+    !== "true"
+) {
+
+    window.location.href =
+        "admin-login.html";
+
+}
+
+
+/* Get bookings */
+
+let bookings =
+    JSON.parse(
+        localStorage.getItem("bookings")
+    ) || [];
+
+
+/* Display events */
+
+function displayCalendar() {
+
+    let calendar =
+        document.getElementById(
+            "calendar"
+        );
+
+
+    calendar.innerHTML = "";
+
+
+    if (bookings.length === 0) {
+
+        calendar.innerHTML =
+            "<p>No events booked yet.</p>";
+
+        return;
+
+    }
+
+
+    bookings.sort(
+        (a, b) =>
+            new Date(a.date) -
+            new Date(b.date)
+    );
+
+
+    bookings.forEach(function(booking) {
+
+
+        let card =
+            document.createElement("div");
+
+
+        card.className =
+            "event-card";
+
+
+        let staffCount =
+            booking.assignedStaff
+            ? booking.assignedStaff.length
+            : 0;
+
+
+        card.innerHTML = `
+
+            <div class="event-date">
+
+                ${booking.date}
+
+            </div>
+
+
+            <div class="event-info">
+
+                <h3>
+                    ${booking.event}
+                </h3>
+
+                <p>
+                    <strong>
+                        Request:
+                    </strong>
+
+                    ${booking.requestID}
+                </p>
+
+                <p>
+                    <strong>
+                        Customer:
+                    </strong>
+
+                    ${booking.name}
+                </p>
+
+                <p>
+                    <strong>
+                        Time:
+                    </strong>
+
+                    ${booking.startTime}
+                    -
+                    ${booking.endTime}
+                </p>
+
+                <p>
+                    <strong>
+                        Location:
+                    </strong>
+
+                    ${booking.location}
+                </p>
+
+                <p>
+                    <strong>
+                        Staff:
+                    </strong>
+
+                    ${staffCount}
+                    assigned
+                </p>
+
+                <span class="event-status">
+
+                    ${booking.status}
+
+                </span>
+
+            </div>
+
+        `;
+
+
+        calendar.appendChild(card);
+
+    });
+
+}
+
+
+function logout() {
+
+    sessionStorage.removeItem(
+        "adminLoggedIn"
+    );
+
+    window.location.href =
+        "admin-login.html";
+
+}
+
+
+displayCalendar();
+
+</script>
+
+</body>
+
+</html>

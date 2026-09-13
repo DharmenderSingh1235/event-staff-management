@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Event Booking</title>
+    <link rel="stylesheet" href="style7.css">
+
+</head>
+
+<body>
+
+<h1>Event Staff Booking</h1>
+
+<form id="bookingForm">
+
+    <label>Name</label><br>
+    <input type="text" id="name" required><br><br>
+
+    <label>Phone</label><br>
+    <input type="text" id="phone" required><br><br>
+
+    <label>Email</label><br>
+    <input type="email" id="email" required><br><br>
+
+    <label>Event</label><br>
+    <select id="event" required>
+        <option value="">Select Event</option>
+        <option>Wedding</option>
+        <option>Birthday</option>
+        <option>Corporate Event</option>
+        <option>College Event</option>
+    </select>
+    <br><br>
+
+    <label>Event Date</label><br>
+    <input type="date" id="date" required><br><br>
+
+    <label>Start Time</label><br>
+    <input type="time" id="startTime" required><br><br>
+
+    <label>End Time</label><br>
+    <input type="time" id="endTime" required><br><br>
+
+    <label>Location</label><br>
+    <input type="text" id="location" required><br><br>
+
+    <label>Male Staff</label><br>
+    <input type="number" id="maleStaff" min="0" value="0"><br><br>
+
+    <label>Female Staff</label><br>
+    <input type="number" id="femaleStaff" min="0" value="0"><br><br>
+
+    <label>Budget</label><br>
+    <input type="number" id="budget" min="0"><br><br>
+
+    <label>Requirements</label><br>
+    <textarea id="message"></textarea><br><br>
+
+    <button type="submit">SUBMIT BOOKING</button>
+
+</form>
+
+
+<script>
+
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const requestID = "EVT-" + Date.now();
+
+const booking = {
+    requestID: requestID,
+    name: document.getElementById("name").value,
+    phone: document.getElementById("phone").value,
+    email: document.getElementById("email").value,
+    event: document.getElementById("event").value,
+    date: document.getElementById("date").value,
+    startTime: document.getElementById("startTime").value,
+    endTime: document.getElementById("endTime").value,
+    location: document.getElementById("location").value,
+    maleStaff: document.getElementById("maleStaff").value,
+    femaleStaff: document.getElementById("femaleStaff").value,
+    budget: document.getElementById("budget").value,
+    message: document.getElementById("message").value,
+    status: "Pending"
+};
+
+let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+bookings.push(booking);
+
+localStorage.setItem("bookings", JSON.stringify(bookings));
+
+// Save the SAME Request ID
+localStorage.setItem("lastRequestID", requestID);
+
+window.location.href = "confirmation.html";
+
+
+    let bookings = JSON.parse(
+        localStorage.getItem("bookings")
+    ) || [];
+
+
+    bookings.push(booking);
+
+
+    localStorage.setItem(
+        "bookings",
+        JSON.stringify(bookings)
+    );
+
+
+    console.log("BOOKING SAVED:", booking);
+
+
+    alert(
+        "Booking submitted successfully!\n\nRequest ID: " +
+        booking.requestID
+    );
+
+
+    window.location.href = "confirmation.html";
+
+});
+
+</script>
+
+</body>
+</html>

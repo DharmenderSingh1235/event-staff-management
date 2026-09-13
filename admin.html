@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Admin Dashboard</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .booking {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px #ccc;
+        }
+
+        .booking h2 {
+            color: blue;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .confirm {
+            background: green;
+            color: white;
+        }
+
+        .reject {
+            background: red;
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+    
+
+<h1>ADMIN DASHBOARD</h1>
+
+<h2>
+    Total Requests:
+    <span id="total">0</span>
+</h2>
+
+<div id="bookingList"></div>
+
+
+<script>
+
+
+function showBookings() {
+
+
+    let bookings = JSON.parse(
+        localStorage.getItem("bookings")
+    ) || [];
+
+
+    document.getElementById("total").innerText =
+        bookings.length;
+
+
+    const list =
+        document.getElementById("bookingList");
+
+
+    list.innerHTML = "";
+
+
+    if (bookings.length === 0) {
+
+        list.innerHTML =
+            "<h2>No booking requests found.</h2>";
+
+        return;
+
+    }
+
+
+    bookings.forEach(function(booking, index) {
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className = "booking";
+
+
+        div.innerHTML = `
+
+            <h2>
+                ${booking.requestID}
+            </h2>
+
+            <p>
+                <b>Name:</b>
+                ${booking.name}
+            </p>
+
+            <p>
+                <b>Phone:</b>
+                ${booking.phone}
+            </p>
+
+            <p>
+                <b>Email:</b>
+                ${booking.email}
+            </p>
+
+            <p>
+                <b>Event:</b>
+                ${booking.event}
+            </p>
+
+            <p>
+                <b>Date:</b>
+                ${booking.date}
+            </p>
+
+            <p>
+                <b>Time:</b>
+                ${booking.startTime}
+                -
+                ${booking.endTime}
+            </p>
+
+            <p>
+                <b>Location:</b>
+                ${booking.location}
+            </p>
+
+            <p>
+                <b>Male Staff:</b>
+                ${booking.maleStaff}
+            </p>
+
+            <p>
+                <b>Female Staff:</b>
+                ${booking.femaleStaff}
+            </p>
+
+            <p>
+                <b>Budget:</b>
+                ₹${booking.budget}
+            </p>
+
+            <p>
+                <b>Requirements:</b>
+                ${booking.message}
+            </p>
+
+            <p>
+                <b>Status:</b>
+                ${booking.status}
+            </p>
+
+            <button
+                class="confirm"
+                onclick="confirmBooking(${index})">
+
+                CONFIRM
+
+            </button>
+
+            <button
+                class="reject"
+                onclick="rejectBooking(${index})">
+
+                REJECT
+
+            </button>
+
+        `;
+
+
+        list.appendChild(div);
+
+    });
+
+}
+
+
+function confirmBooking(index) {
+
+    let bookings = JSON.parse(
+        localStorage.getItem("bookings")
+    ) || [];
+
+
+    bookings[index].status =
+        "Confirmed";
+
+
+    localStorage.setItem(
+        "bookings",
+        JSON.stringify(bookings)
+    );
+
+
+    showBookings();
+
+}
+
+
+function rejectBooking(index) {
+
+    let bookings = JSON.parse(
+        localStorage.getItem("bookings")
+    ) || [];
+
+
+    bookings[index].status =
+        "Rejected";
+
+
+    localStorage.setItem(
+        "bookings",
+        JSON.stringify(bookings)
+    );
+
+
+    showBookings();
+
+}
+
+
+showBookings();
+
+
+</script>
+
+</body>
+</html>

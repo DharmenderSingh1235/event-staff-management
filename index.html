@@ -1,0 +1,188 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EventEase | Book Staff</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <a class="brand" href="index.html">
+      Event<span>Ease</span>
+    </a>
+
+    <nav>
+      <a href="check-status.html">Check status</a>
+      <a href="find-request-id.html">Find Request ID</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="hero">
+
+    <!-- Introduction Section -->
+    <section>
+      <p class="eyebrow">EVENT STAFFING, MADE SIMPLE</p>
+
+      <h1>Great events start with the right team.</h1>
+
+      <p class="lead">
+        Tell us about your event and receive a Request ID
+        to follow every step of your booking.
+      </p>
+
+      <div class="chips">
+        <span>Weddings</span>
+        <span>Corporate events</span>
+        <span>Parties</span>
+      </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section class="card form-card">
+
+      <h2>Book event staff</h2>
+
+      <p class="muted">
+        We’ll save your request instantly.
+      </p>
+
+      <form id="bookingForm">
+
+        <!-- Name and Phone -->
+        <div class="grid two">
+
+          <label>
+            Full name
+            <input
+              name="name"
+              required
+              placeholder="Rahul Sharma"
+            >
+          </label>
+
+          <label>
+            Phone number
+            <input
+              name="phone"
+              required
+              pattern="[0-9+ -]{8,}"
+              placeholder="9876543210"
+            >
+          </label>
+
+        </div>
+
+        <!-- Email -->
+        <label>
+          Email address
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="rahul@example.com"
+          >
+        </label>
+
+        <!-- Event Type and Date -->
+        <div class="grid two">
+
+          <label>
+            Event type
+
+            <select name="eventType" required>
+              <option value="">Choose one</option>
+              <option>Wedding</option>
+              <option>Corporate Event</option>
+              <option>Birthday Party</option>
+              <option>Concert</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>
+            Event date
+            <input
+              type="date"
+              name="eventDate"
+              required
+            >
+          </label>
+
+        </div>
+
+        <!-- Location and Guests -->
+        <div class="grid two">
+
+          <label>
+            Location
+            <input
+              name="location"
+              required
+              placeholder="Delhi"
+            >
+          </label>
+
+          <label>
+            Guest count
+            <input
+              type="number"
+              name="guests"
+              min="1"
+              required
+              placeholder="300"
+            >
+          </label>
+
+        </div>
+
+        <!-- Staff Needed -->
+        <label>
+          How many staff do you need?
+
+          <input
+            type="number"
+            name="staffNeeded"
+            min="1"
+            required
+            placeholder="10"
+          >
+        </label>
+
+        <!-- Notes -->
+        <label>
+          Notes (optional)
+
+          <textarea
+            name="notes"
+            placeholder="Need stage decoration"
+          ></textarea>
+        </label>
+
+        <!-- Submit Button -->
+        <button type="submit">
+          Submit booking request
+        </button>
+
+      </form>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    EventEase demo · Your data stays in this browser. · <a href="admin/login.html">Owner login</a>
+  </footer>
+
+  <!-- JavaScript Files -->
+  <script src="js/storage.js"></script>
+  <script src="js/booking.js"></script>
+
+</body>
+</html>
